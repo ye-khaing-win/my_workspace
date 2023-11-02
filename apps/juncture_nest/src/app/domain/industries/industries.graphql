@@ -1,0 +1,49 @@
+type Industry {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+  name: String!
+  description: String
+}
+
+input CreateIndustryInput {
+  name: String!
+  description: String
+}
+
+input UpdateIndustryInput {
+  name: String
+  description: String
+}
+
+input FilterIndustryInput {
+  name: StringOperationsInput
+}
+
+input SearchIndustryInput {
+  name: String
+  description: String
+}
+
+input OrderByIndustryInput {
+  name: SortOrder
+  createdAt: SortOrder
+}
+
+type Query {
+  industries(
+    filter: FilterIndustryInput
+    search: SearchIndustryInput
+    orderBy: OrderByIndustryInput
+    pagination: PaginationInput
+  ): [Industry]!
+  industry(id: ID!): Industry
+}
+
+type Mutation {
+  createIndustry(input: CreateIndustryInput!): Industry!
+  updateIndustry(id: ID!, input: UpdateIndustryInput!): Industry!
+  deleteIndustry(id: ID!): Industry
+  recoverIndustry(id: ID!): Industry
+}

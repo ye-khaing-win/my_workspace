@@ -1,0 +1,38 @@
+enum SortOrder {
+  asc
+  desc
+}
+
+input PaginationInput {
+  page: Int
+  limit: Int
+}
+
+input StringOperationsInput {
+  and: [StringOperationsInput!]
+  or: [StringOperationsInput!]
+  not: StringOperationsInput
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input IntegerOperationsInput {
+  and: [IntegerOperationsInput!]
+  or: [IntegerOperationsInput!]
+  not: IntegerOperationsInput
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+}

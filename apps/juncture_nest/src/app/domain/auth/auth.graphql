@@ -1,0 +1,40 @@
+type AuthResponse {
+  token: String!
+}
+
+type MessageResponse {
+  message: String!
+}
+
+input SignupAdminInput {
+  name: String!
+  email: String!
+  companyId: ID!
+  phoneNumber: String
+  password: String
+}
+
+input InviteMemberInput {
+  email: String!
+  roleId: ID!
+}
+
+input SignupMemberInput {
+  name: String!
+  email: String!
+  phoneNumber: String
+  password: String!
+  otp: String!
+}
+
+input LoginInput {
+  name: String!
+  password: String!
+}
+
+type Mutation {
+  signupAdmin(input: SignupAdminInput!): AuthResponse!
+  inviteCandidate(input: InviteMemberInput!): MessageResponse!
+  signupMember(input: SignupMemberInput!): AuthResponse!
+  login(input: LoginInput): AuthResponse!
+}

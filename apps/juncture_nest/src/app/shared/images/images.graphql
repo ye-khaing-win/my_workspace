@@ -1,0 +1,13 @@
+type Image {
+  key: String!
+  name: String!
+  mimetype: String!
+  encoding: String
+  url: String
+}
+
+type Mutation {
+  createImage(image: Upload!): Image!
+}
+
+scalar Upload

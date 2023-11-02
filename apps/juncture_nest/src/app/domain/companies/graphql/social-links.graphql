@@ -1,0 +1,16 @@
+type SocialLink {
+  id: ID!
+  type: String!
+  link: String!
+  company: Company!
+}
+
+input CreateSocialLinkInput {
+  type: String!
+  link: String!
+}
+
+input UpdateSocialLinkInput {
+  type: String
+  link: String
+}

@@ -1,0 +1,91 @@
+type Company {
+  id: ID!
+  createdAt: String
+  updatedAt: String
+  name: String
+  description: String
+  logo: Logo
+  banner: String
+  industry: Industry
+  size: Size
+  aboutUs: String
+  whatWeOffer: String
+  ourVision: String
+  ourCulture: String
+  address: String
+  websiteLinks: [String]
+  socialLinks: [SocialLink]
+  palette: Palette
+  testimonial: Testimonial
+  roles: [Role]
+}
+
+input CreateCompanyInput {
+  name: String!
+  description: String
+  logo: String
+  banner: String
+  industryId: String!
+  size: CreateSizeInput!
+  aboutUs: String
+  whatWeOffer: String
+  ourVision: String
+  ourCulture: String
+  address: String
+  websiteLinks: [String!]
+  socialLinks: [CreateSocialLinkInput]
+  palette: CreatePaletteInput
+  testimonial: CreateTestimonialInput
+}
+
+input UpdateCompanyInput {
+  name: String
+  description: String
+  logo: String
+  banner: String
+  industryId: String
+  size: UpdateSizeInput
+  aboutUs: String
+  whatWeOffer: String
+  ourVision: String
+  ourCulture: String
+  address: String
+  websiteLinks: [String!]
+  socialLinks: [UpdateSocialLinkInput]
+  palette: CreatePaletteInput
+  testimonial: CreateTestimonialInput
+}
+
+input FilterCompanyInput {
+  name: StringOperationsInput
+  industry: FilterIndustryInput
+  size: FilterSizeInput
+}
+
+input SearchCompanyInput {
+  name: String
+  aboutUs: String
+}
+
+input OrderByCompanyInput {
+  name: SortOrder
+  industry: OrderByIndustryInput
+  size: OrderBySizeInput
+}
+
+type Query {
+  companies(
+    filter: FilterCompanyInput
+    search: SearchCompanyInput
+    orderBy: OrderByCompanyInput
+    pagination: PaginationInput
+  ): [Company]!
+  company(id: ID!): Company
+}
+
+type Mutation {
+  createCompany(input: CreateCompanyInput!, logo: Upload!): Company!
+  updateCompany(id: ID!, input: UpdateCompanyInput!): Company!
+  deleteCompany(id: ID!): Company
+  recoverCompany(id: ID!): Company
+}

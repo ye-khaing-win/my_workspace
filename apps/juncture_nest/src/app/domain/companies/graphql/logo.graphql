@@ -1,0 +1,9 @@
+type Logo {
+  key: String!
+  name: String!
+  mimetype: String!
+  encoding: String
+  url: String
+}
+
+scalar Upload

@@ -1,0 +1,29 @@
+{
+  "name": "@dev/s3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "tsc-version": "tsc --version",
+    "check-engines": "node ../../node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "clean": "rimraf build && rimraf coverage",
+    "prebuild": "npm run clean && npm run check-engines",
+    "prepublishOnly": "npm run build",
+    "pretest": "npm run build",
+    "test": "npm run test:ci",
+    "test:ci": "jest --ci --collectCoverage --maxWorkers 2 --passWithNoTests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.440.0",
+    "@aws-sdk/s3-request-presigner": "^3.440.0",
+    "@nestjs/common": "^10.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10"
+  }
+}

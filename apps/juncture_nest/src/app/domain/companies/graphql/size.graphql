@@ -1,0 +1,25 @@
+type Size {
+  id: ID!
+  min: Int!
+  max: Int!
+}
+
+input CreateSizeInput {
+  min: Int!
+  max: Int!
+}
+
+input UpdateSizeInput {
+  min: Int
+  max: Int
+}
+
+input FilterSizeInput {
+  min: IntegerOperationsInput
+  max: IntegerOperationsInput
+}
+
+input OrderBySizeInput {
+  min: SortOrder
+  max: SortOrder
+}

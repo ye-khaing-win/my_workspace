@@ -1,0 +1,46 @@
+enum RoleTypes {
+  ADMIN
+  COORDINATOR
+  HR
+  CUSTOM
+}
+
+type Role {
+  id: String!
+  createdAt: String!
+  updatedAt: String!
+  name: String!
+  type: RoleTypes!
+  description: String
+  permissions: [Permission]
+  default: Boolean
+  company: Company
+}
+
+input CreateRoleInput {
+  name: String!
+  type: RoleTypes!
+  description: String
+  permissions: [ID]!
+  companyId: String!
+}
+
+input UpdateRoleInput {
+  name: String
+  type: RoleTypes
+  description: String
+  permissions: [ID]
+  companyId: String
+}
+
+type Query {
+  roles: [Role]!
+  role(id: ID!): Role
+}
+
+type Mutation {
+  createRole(input: CreateRoleInput!): Role!
+  updateRole(id: ID!, input: UpdateRoleInput!): Role!
+  deleteRole(id: ID!): Role
+  recoverRole(id: ID!): Role
+}

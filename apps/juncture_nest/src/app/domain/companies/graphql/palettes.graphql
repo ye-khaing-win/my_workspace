@@ -1,0 +1,18 @@
+type Palette {
+  id: ID!
+  primary: String!
+  secondary: String
+  tertiary: String
+}
+
+input CreatePaletteInput {
+  primary: String!
+  secondary: String
+  tertiary: String
+}
+
+input UpdatePaletteInput {
+  primary: String!
+  secondary: String
+  tertiary: String
+}

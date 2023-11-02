@@ -1,0 +1,158 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model Industry {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  name        String
+  description String?
+  companies   Company[]
+
+  @@map("industries")
+}
+
+model Size {
+  id        Int      @id @default(autoincrement())
+  min       Int
+  max       Int
+  companyId String   @unique
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model SocialLink {
+  id        Int      @id @default(autoincrement())
+  type      String
+  link      String
+  companyId String
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("social_links")
+}
+
+model Palette {
+  id        Int      @id @default(autoincrement())
+  primary   String
+  secondary String?
+  tertiary  String?
+  companyId String   @unique
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("palettes")
+}
+
+model Testimonial {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  companyId   String   @unique
+  company     Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("testimonials")
+}
+
+model Logo {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  key       String   @unique
+  name      String
+  mimetype  String
+  encoding  String?
+  url       String
+  companyId String @unique
+  company Company? @relation(fields: [companyId], references: [id])
+
+  @@map("logos")
+}
+
+model Company {
+  id           String       @id @default(cuid())
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  deletedAt    DateTime?
+  name         String       @unique
+  description  String?
+  logo         Logo?
+  banner       String?
+  industryId   String
+  industry     Industry     @relation(fields: [industryId], references: [id])
+  size         Size?
+  aboutUs      String?
+  whatWeOffer  String?
+  ourVision    String?
+  ourCulture   String?
+  address      String?
+  websiteLinks String[]
+  socialLinks  SocialLink[]
+  palette      Palette?
+  testimonial  Testimonial?
+  users        User[]
+  roles        Role[]
+
+  @@map("companies")
+}
+
+model Permission {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  name        String    @unique
+  key         String
+  description String?
+  action      String
+  roles       Role[]
+
+  @@map("permissions")
+}
+
+model Role {
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+  name        String
+  type        String
+  description String?
+  permissions Permission[]
+  users       User[]
+  default     Boolean      @default(false)
+  companyId   String
+  company     Company      @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([name, companyId])
+  @@map("roles")
+}
+
+model User {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  name        String?   @unique
+  email       String
+  roleId      String
+  role        Role      @relation(fields: [roleId], references: [id])
+  companyId   String
+  company     Company   @relation(fields: [companyId], references: [id])
+  phoneNumber String?
+  password    String
+  otp         String?
+  status      String    @default("active")
+
+  @@unique([email, companyId])
+  @@map("users")
+}

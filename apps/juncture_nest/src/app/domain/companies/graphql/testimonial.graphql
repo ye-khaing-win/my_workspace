@@ -1,0 +1,10 @@
+type Testimonial {
+  id: ID!
+  title: String!
+  description: String
+}
+
+input CreateTestimonialInput {
+  title: String!
+  description: String
+}

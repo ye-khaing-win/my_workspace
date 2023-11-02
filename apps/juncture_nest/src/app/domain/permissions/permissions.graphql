@@ -1,0 +1,44 @@
+enum Actions {
+  LIST
+  DETAILS
+  CREATE
+  UPDATE
+  DELETE
+  RECOVER
+}
+
+type Permission {
+  id: String
+  createdAt: String
+  updatedAt: String
+  name: String
+  key: String
+  description: String
+  action: Actions
+}
+
+input CreatePermissionInput {
+  name: String!
+  description: String
+  key: String!
+  action: Actions!
+}
+
+input UpdatePermissionInput {
+  name: String
+  description: String
+  key: String
+  action: Actions
+}
+
+type Query {
+  permissions: [Permission]!
+  permission(id: ID!): Permission
+}
+
+type Mutation {
+  createPermission(input: CreatePermissionInput!): Permission!
+  updatePermission(id: ID!, input: UpdatePermissionInput!): Permission!
+  deletePermission(id: ID!): Permission
+  recoverPermission(id: ID!): Permission
+}
